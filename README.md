@@ -113,7 +113,7 @@ Example:
 
 ### 1️⃣ Clone Repository
 ```bash
-git clone https://github.com/TamimHq/traffic-analysis-pipeline.git
+git clone https://github.com/TamimHq/ObjectDetectionInVideo
 cd traffic-analysis-pipeline
 ```
 ### 2️⃣ Install Dependencies
