@@ -1,36 +1,157 @@
-# Automated Traffic Analysis & Object Tracking Pipeline
+# 🎥 Object Detection & Tracking in Video Pipeline
 
-## Overview
+## 📌 Overview
 This repository contains an end-to-end machine learning pipeline designed to ingest raw video feeds, detect and track specific objects, and export the tracking data into structured CSV reports. Built using the state-of-the-art YOLO11 architecture and ByteTrack algorithms, this project demonstrates how to transform unstructured computer vision data into actionable, quantifiable metrics suitable for enterprise reporting and analytics.
 
-## Repository Structure
+---
+## 🎯 Key Objectives
+- Detect objects from video frames
+- Track objects across frames using unique IDs
+- Count objects without duplication
+- Export results into structured data formats
 
-* `Models/` 
-  * `best.pt`: The custom-trained YOLO11 weights (trained for 100 epochs).
-* `NoteBook/`
-  * `object_detection_in_video.ipynb`: The complete Google Colab notebook containing the data ingestion, training loop, validation, and inference scripts. *(Note: API keys have been securely removed for public repository sharing).*
-* `outputs/`
-  * `web_ready_output.mp4`: The final annotated video featuring bounding boxes, tracking IDs, a defined Region of Interest (ROI) counting zone, and live on-screen tallies.
-  * `total_counts.csv`: The structured data export containing the final aggregated counts of detected objects.
-* `Results/`
-  * `Confusion_matrix.png`: Model evaluation matrix showcasing classification accuracy across the dataset.
-  * `Training_result.png`: Graphs detailing the training/validation loss and Mean Average Precision (mAP) over the 100-epoch training cycle.
+---
+## 🧠 Core Features
 
-## Core Features
-* **Custom Fine-Tuning:** Trained YOLO11m on a comprehensive 80-class COCO dataset, achieving stable generalization without overfitting.
-* **Multi-Object Tracking:** Utilizes ByteTrack to assign and maintain unique persistent IDs to moving objects across consecutive video frames, preventing double-counting.
-* **Region of Interest (ROI) Counting:** Implements a dynamic "Counting Zone" logic. Objects are only tallied when their calculated center coordinates intersect with a predefined spatial boundary.
-* **Automated Data Extraction:** Seamlessly translates visual tracking events into a clean `.csv` spreadsheet for seamless integration into downstream databases or MIS dashboards.
-* **Web-Optimized Export:** Integrates FFmpeg within the Python pipeline to automatically compress the final OpenCV output into an H.264 MP4 format for native browser playback.
+### 🔹 Object Detection (YOLO11)
+- Uses Ultralytics YOLO11m
+- Trained on COCO (80 classes)
+- Configuration:
+ - Epochs: 100
+ - Batch Size: 16
+ - Image Size: 640
+---
+### 🔹 Multi-Object Tracking (ByteTrack)
+- Maintains persistent tracking IDs
+- Prevents:
+ - Double counting
+ - Frame-to-frame inconsistency
+---
+### 🔹 ROI-Based Counting System
+- Defines a dynamic counting zone
+- Counts objects only when entering the region
+- Ensures accurate event-based counting
 
-## Tech Stack
-* **Python**
-* **Ultralytics YOLO11** (Deep Learning & Computer Vision)
-* **OpenCV** (Video processing, spatial math, and visual annotation)
-* **ByteTrack** (Tracking algorithm)
-* **FFmpeg** (Video codec compression)
+```python
+if zone_x1 < cx < zone_x2 and zone_y1 < cy < zone_y2:
+    if track_id not in counted_ids:
+        counted_ids.add(track_id)
+```
+---
+### 🔹 Automated Data Export
+- Generates structured output:
+```bash
+total_counts.csv
+```
+Example:
+```bash
+| Object Type | Total Count |
+|------------|------------|
+| Person     | 32         |
+| Car        | 18         |
+| Dog        | 5          |
+```
+---
+### 🔹 Video Annotation & Export
+- Annotates:
+ - Bounding boxes
+ - Class labels
+ - Tracking IDs
+ - Counting zone
+- Converts output to web-ready MP4 using FFmpeg
+---
+## 📊 Model Performance
 
-## How to View
-To see the results immediately, navigate to the `outputs/` folder and view the `web_ready_output.mp4` video. The corresponding data tallies are available in `total_counts.csv`.
+### 🔹 Training Results
+<p align="center"> <img src="Results/Training_result.png" width="500"/> </p>
 
-To review the training methodology, open `NoteBook/object_detection_in_video.ipynb`.
+- Shows loss convergence, precision, recall, and mAP trends
+- Indicates stable training and good generalization
+
+### 🔹 Confusion Matrix
+<p align="center"> <img src="Confusion_matrix.png" width="500"/> </p>
+
+- Strong diagonal → correct classifications
+- Minimal class confusion across dataset
+---
+## 🏗️ Project Structure
+
+📦 object-detection-in-video
+│
+├── Models/
+│   └── best.pt       # Trained YOLO11 weights
+│
+├── NoteBook/
+│   └── object_detection_in_video.ipynb
+│
+├── outputs/
+│   ├── web_ready_output.mp4    # Annotated output video
+│   └── total_counts.csv        # Final aggregated counts
+│
+├── Results/
+│   ├── Training_result.png    # Training metrics 
+│   └── Confusion_matrix.png   # Evaluation matrix
+│
+└── README.md
+
+---
+
+## ⚙️ Tech Stack
+
+| Category            | Technology              |
+|--------------------|------------------------|
+| Language           | Python                 |
+| Detection          | YOLO11 (Ultralytics)   |
+| Tracking           | ByteTrack              |
+| Video Processing   | OpenCV                 |
+| Dataset Platform   | Roboflow               |
+| Compression        | FFmpeg                 |
+
+---
+## 🚀 How to Run
+
+### 1️⃣ Clone Repository
+```bash
+git clone https://github.com/TamimHq/traffic-analysis-pipeline.git
+cd traffic-analysis-pipeline
+```
+### 2️⃣ Install Dependencies
+```bash
+pip install ultralytics roboflow opencv-python
+```
+### 3️⃣ Run Notebook
+```bash
+NoteBook/object_detection_in_video.ipynb
+```
+Run all cells to:
+- Train model (optional)
+- Evaluate performance
+- Process video
+- Generate outputs
+---
+
+## 📦 Outputs
+
+| Output Types | File |
+|--------------|------|
+|🎥 Annotated Video|web_ready_output.mp4|
+|📊 CSV Report|total_counts.csv|
+---
+
+## 💡 Real-World Applications
+- 🚗 Traffic flow monitoring
+- 🏙️ Smart city infrastructure
+- 🏭 Industrial object tracking
+- 🛒 Retail analytics
+- 🎥 Surveillance systems
+---
+
+## 🔒 Notes
+- API keys removed for security
+- Model weights included for inference
+- Compatible with Google Colab + local setup
+---
+
+## 📬 Contact
+Tamim Haque
+Feel free to connect for collaboration or questions!
