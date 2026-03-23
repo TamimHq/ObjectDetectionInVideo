@@ -54,10 +54,10 @@ Example:
 ---
 ### 🔹 Video Annotation & Export
 - Annotates:
- - Bounding boxes
- - Class labels
- - Tracking IDs
- - Counting zone
+  - Bounding boxes
+  - Class labels
+  - Tracking IDs
+  - Counting zone
 - Converts output to web-ready MP4 using FFmpeg
 ---
 ## 📊 Model Performance
