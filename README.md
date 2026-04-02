@@ -1,4 +1,4 @@
-# 🎥 Object Detection & Tracking in Video Pipeline
+# 🎥 Object Detection and Tracking in Video Streams
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://objectdetectioninvideo.streamlit.app/)
 
